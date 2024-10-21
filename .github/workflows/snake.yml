@@ -1,0 +1,30 @@
+name: Generate Snake
+
+on:
+  # Triggers the workflow on every push or once a day
+  push:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v2
+
+      # Generates the snake game from a github user contributions graph
+      - uses: Platane/snk@master
+        id: snake-gif
+        with:
+          github_user_name: Andryfitia
+          outputs: gif
+          color_snake: "#8dffa1"
+          color_dots: "#333333"
+
+      # Push the generated snake gif to the output branch
+      - name: push snake gif to the output branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: output
+          force: true
